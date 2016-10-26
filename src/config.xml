@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="ngsi-target" version="3.0.7">
+    <details>
+        <title>NGSI target</title>
+        <homepage>https://github.com/wirecloud-fiware/ngsi-target-operator</homepage>
+        <authors>Álvaro Arranz &lt;aarranz@conwet.com&gt;</authors>
+        <email>wirecloud@conwet.com</email>
+        <image>images/catalogue.png</image>
+        <description>Retrieve Orion Context Broker entities and their updates in real time.</description>
+        <longdescription>DESCRIPTION.md</longdescription>
+        <license>Apache License 2.0</license>
+        <licenseurl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseurl>
+        <doc>doc/userguide.md</doc>
+        <changelog>doc/changelog.md</changelog>
+        <issuetracker>https://github.com/wirecloud-fiware/ngsi-target-operator/issues</issuetracker>
+    </details>
+
+    <requirements>
+        <feature name="NGSI"/>
+    </requirements>
+
+    <preferences>
+        <preference name="ngsi_server" type="text" label="NGSI server URL" description="URL of the Orion Context Broker to use for retrieving entity information" default="http://orion.lab.fiware.org:1026/"/>
+        <preference name="use_user_fiware_token" type="boolean" label="Use the FIWARE credentials of the user" description="Use the FIWARE credentials of the user logged into WireCloud. Take into account this option cannot be enabled if you want to use this widget in a public workspace as anonoymous users doesn't have a valid FIWARE auth token. As an alternative, you can make use of the &quot;Use the FIWARE credentials of the workspace owner&quot; preference." default="true"/>
+        <preference name="use_owner_credentials" type="boolean" label="Use the FIWARE credentials of the workspace owner" description="Use the FIWARE credentials of the owner of the workspace. This preference takes preference over &quot;Use the FIWARE credentials of the user&quot;. This feature is available on WireCloud 0.7.0+ in a experimental basis, future versions of WireCloud can change the way to use it making this option not funcional and requiring you to upgrade this operator" default="false"/>
+        <preference name="ngsi_tenant" type="text" label="NGSI tenant/service" description="Tenant/service to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol. Maximum length is 50 characters. If empty, the default tenant will be used" default=""/>
+        <preference name="ngsi_service_path" type="text" label="NGSI scope" description="Scope/path to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol separated by &quot;/&quot; slashes. Maximum length is 50 characters. If empty, the default service path will be used: /" default="/"/>
+    </preferences>
+    <wiring>
+        <inputendpoint name="entityInput" type="text" label="Entity to save" description="Entity to save into the context broker" friendcode="entity"/>
+    </wiring>
+    <scripts>
+        <script src="js/main.js"/>
+    </scripts>
+
+</operator>
