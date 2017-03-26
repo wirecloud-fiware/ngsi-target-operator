@@ -26,9 +26,13 @@
         <preference name="ngsi_tenant" type="text" label="NGSI tenant/service" description="Tenant/service to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol. Maximum length is 50 characters. If empty, the default tenant will be used" default=""/>
         <preference name="ngsi_service_path" type="text" label="NGSI scope" description="Scope/path to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol separated by &quot;/&quot; slashes. Maximum length is 50 characters. If empty, the default service path will be used: /" default="/"/>
     </preferences>
+
     <wiring>
-        <inputendpoint name="entityInput" type="text" label="Entity to save" description="Entity to save into the context broker" friendcode="entity"/>
+        <inputendpoint name="replaceentity" type="text" label="Entity to update" description="Entity to update into the context broker" friendcode="entity"/>
+        <inputendpoint name="batchupdate" type="text" label="Batch Update" description="Entity to save into the context broker" friendcode="entity"/>
+        <inputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity"/>
     </wiring>
+
     <scripts>
         <script src="js/main.js"/>
     </scripts>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2016 CoNWeT Lab., Universidad Politécnica de Madrid
+ * Copyright (c) 2013-2017 CoNWeT Lab., Universidad Politécnica de Madrid
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,26 +32,29 @@
 
         mp.prefs.registerCallback(createNGSIConnection.bind(this));
 
-        mp.wiring.registerCallback('entityInput', function (data) {
-            // TODO
-            if (typeof data === "string") {
-                data = JSON.parse(data);
+        mp.wiring.registerCallback('replaceentity', (entity) => {
+            if (typeof entity === "string") {
+                try {
+                    entity = JSON.parse(entity);
+                } catch (e) {
+                    throw new MashupPlatform.wiring.EndpointTypeError();
+                }
             }
-            var entity = {
-                id: data.id,
-                type: data.type
-            };
-            delete data.id;
-            delete data.type;
-
-            var attributes = [];
-            Object.keys(data).forEach(function (key) {
-                attributes.push({name: key, contextValue: data[key]});
+            this.connection.v2.replaceEntityAttributes(entity).then(() => {
+                MashupPlatform.wiring.pushEvent("updatedentity", entity);
             });
-            this.connection.addAttributes(
-                [{entity: entity, attributes: attributes}]
-            );
-        }.bind(this));
+        });
+
+        mp.wiring.registerCallback('batchupdate', (updates) => {
+            if (typeof updates === "string") {
+                try {
+                    updates = JSON.parse(updates);
+                } catch (e) {
+                    throw new MashupPlatform.wiring.EndpointTypeError();
+                }
+            }
+            this.connection.v2.batchUpdate(updates);
+        });
     };
 
     /******************************************************************************/
