@@ -1,0 +1,10 @@
+{
+  "extend": ".eslintrc-rules",
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "Promise": false,
+    "WeakMap": false
+  }
+}
