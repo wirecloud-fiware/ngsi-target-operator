@@ -65,9 +65,9 @@
         var request_headers = {};
 
         if (mp.prefs.get('use_owner_credentials')) {
-            request_headers['X-FIWARE-OAuth-Token'] = 'true';
-            request_headers['X-FIWARE-OAuth-Header-Name'] = 'X-Auth-Token';
-            request_headers['x-FIWARE-OAuth-Source'] = 'workspaceowner';
+            request_headers['FIWARE-OAuth-Token'] = 'true';
+            request_headers['FIWARE-OAuth-Header-Name'] = 'X-Auth-Token';
+            request_headers['FIWARE-OAuth-Source'] = 'workspaceowner';
         }
 
         var tenant = mp.prefs.get('ngsi_tenant').trim().toLowerCase();
