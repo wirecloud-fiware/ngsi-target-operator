@@ -23,14 +23,14 @@
         <preference name="ngsi_server" type="text" label="NGSI server URL" description="URL of the Orion Context Broker to use for retrieving entity information" default="http://orion.lab.fiware.org:1026/"/>
         <preference name="use_user_fiware_token" type="boolean" label="Use the FIWARE credentials of the user" description="Use the FIWARE credentials of the user logged into WireCloud. Take into account this option cannot be enabled if you want to use this widget in a public workspace as anonoymous users doesn't have a valid FIWARE auth token. As an alternative, you can make use of the &quot;Use the FIWARE credentials of the workspace owner&quot; preference." default="true"/>
         <preference name="use_owner_credentials" type="boolean" label="Use the FIWARE credentials of the workspace owner" description="Use the FIWARE credentials of the owner of the workspace. This preference takes preference over &quot;Use the FIWARE credentials of the user&quot;. This feature is available on WireCloud 0.7.0+ in a experimental basis, future versions of WireCloud can change the way to use it making this option not funcional and requiring you to upgrade this operator" default="false"/>
-        <preference name="ngsi_tenant" type="text" label="NGSI tenant/service" description="Tenant/service to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol. Maximum length is 50 characters. If empty, the default tenant will be used" default=""/>
-        <preference name="ngsi_service_path" type="text" label="NGSI scope" description="Scope/path to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol separated by &quot;/&quot; slashes. Maximum length is 50 characters. If empty, the default service path will be used: /" default="/"/>
+        <preference name="fiware_service" type="text" label="FIWARE Service" description="Tenant/service to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol. Maximum length is 50 characters. If empty, the default tenant will be used" default=""/>
+        <preference name="fiware_service_path" type="text" label="FIWARE Service Path" description="Scope/path to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol separated by &quot;/&quot; slashes. Maximum length is 50 characters. If empty, the default service path will be used: /" default="/"/>
     </preferences>
 
     <wiring>
+        <inputendpoint name="batchupdate" type="text" label="Batch update" description="Entity to save into the context broker" friendcode="entity"/>
         <inputendpoint name="replaceentity" type="text" label="Entity to update" description="Entity to update into the context broker" friendcode="entity"/>
-        <inputendpoint name="batchupdate" type="text" label="Batch Update" description="Entity to save into the context broker" friendcode="entity"/>
-        <inputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity"/>
+        <outputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity"/>
     </wiring>
 
     <scripts>

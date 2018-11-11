@@ -16,7 +16,7 @@
 
 /* globals MashupPlatform, NGSI */
 
-(function (mp) {
+(function () {
 
     "use strict";
 
@@ -25,14 +25,15 @@
     /******************************************************************************/
 
     var NGSITarget = function NGSITarget() {
+        this.connection = null;
     };
 
     NGSITarget.prototype.init = function init() {
         createNGSIConnection.call(this);
 
-        mp.prefs.registerCallback(createNGSIConnection.bind(this));
+        MashupPlatform.prefs.registerCallback(createNGSIConnection.bind(this));
 
-        mp.wiring.registerCallback('replaceentity', (entity) => {
+        MashupPlatform.wiring.registerCallback('replaceentity', (entity) => {
             if (typeof entity === "string") {
                 try {
                     entity = JSON.parse(entity);
@@ -45,7 +46,7 @@
             });
         });
 
-        mp.wiring.registerCallback('batchupdate', (updates) => {
+        MashupPlatform.wiring.registerCallback('batchupdate', (updates) => {
             if (typeof updates === "string") {
                 try {
                     updates = JSON.parse(updates);
@@ -64,29 +65,38 @@
     var createNGSIConnection = function createNGSIConnection() {
         var request_headers = {};
 
-        if (mp.prefs.get('use_owner_credentials')) {
+        if (MashupPlatform.prefs.get('use_owner_credentials')) {
             request_headers['FIWARE-OAuth-Token'] = 'true';
             request_headers['FIWARE-OAuth-Header-Name'] = 'X-Auth-Token';
             request_headers['FIWARE-OAuth-Source'] = 'workspaceowner';
         }
 
-        var tenant = mp.prefs.get('ngsi_tenant').trim().toLowerCase();
+        var tenant = MashupPlatform.prefs.get('fiware_service').trim();
         if (tenant !== '') {
             request_headers['FIWARE-Service'] = tenant;
         }
 
-        var path = mp.prefs.get('ngsi_service_path').trim().toLowerCase();
+        var path = MashupPlatform.prefs.get('fiware_service_path').trim();
         if (path !== '' && path !== '/') {
             request_headers['FIWARE-ServicePath'] = path;
         }
 
-        this.connection = new NGSI.Connection(mp.prefs.get('ngsi_server'), {
-            use_user_fiware_token: mp.prefs.get('use_user_fiware_token'),
+        this.connection = new NGSI.Connection(MashupPlatform.prefs.get('ngsi_server'), {
+            use_user_fiware_token: MashupPlatform.prefs.get('use_user_fiware_token'),
             request_headers: request_headers
         });
     };
 
-    var ngsiTarget = new NGSITarget();
-    ngsiTarget.init();
+    /* import-block */
+    window.NGSITarget = NGSITarget;
+    /* end-import-block */
 
-})(MashupPlatform);
+    /* TODO
+     * this if is required for testing, but we have to search a cleaner way
+     */
+    if (window.MashupPlatform != null) {
+        var ngsiTarget = new NGSITarget();
+        ngsiTarget.init();
+    }
+
+})();
