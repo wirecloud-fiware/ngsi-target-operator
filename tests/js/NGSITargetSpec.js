@@ -18,7 +18,7 @@
                     'use_owner_credentials': false,
                     'use_user_fiware_token': false
                 },
-                inputs: ['replaceentity', 'batchupdate'],
+                inputs: ['batchupdate', 'createorupdate', 'replaceentity'],
                 outputs: ['updatedentity']
             });
 

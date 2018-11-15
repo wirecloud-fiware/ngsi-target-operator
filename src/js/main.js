@@ -46,6 +46,20 @@
             });
         });
 
+        MashupPlatform.wiring.registerCallback('createorupdate', (updates) => {
+            if (typeof updates === "string") {
+                try {
+                    updates = JSON.parse(updates);
+                } catch (e) {
+                    throw new MashupPlatform.wiring.EndpointTypeError();
+                }
+            }
+            this.connection.v2.createEntity(updates, {
+                keyValues: true,
+                upsert: true
+            });
+        });
+
         MashupPlatform.wiring.registerCallback('batchupdate', (updates) => {
             if (typeof updates === "string") {
                 try {

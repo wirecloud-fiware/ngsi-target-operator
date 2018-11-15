@@ -29,6 +29,7 @@
 
     <wiring>
         <inputendpoint name="batchupdate" type="text" label="Batch update" description="Entity to save into the context broker" friendcode="entity"/>
+        <inputendpoint name="createorupdate" type="text" label="Create or update" description="Entity to create or update into the context broker" friendcode="entity"/>
         <inputendpoint name="replaceentity" type="text" label="Entity to update" description="Entity to update into the context broker" friendcode="entity"/>
         <outputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity"/>
     </wiring>
