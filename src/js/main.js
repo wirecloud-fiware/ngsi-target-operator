@@ -28,48 +28,47 @@
         this.connection = null;
     };
 
+    const parseInputEndpointData = function parseInputEndpointData(data) {
+        if (typeof data === "string") {
+            try {
+                data = JSON.parse(data);
+            } catch (e) {
+                throw new MashupPlatform.wiring.EndpointTypeError();
+            }
+        } else if (data == null || typeof data !== "object" || Array.isArray(data)) {
+            throw new MashupPlatform.wiring.EndpointTypeError();
+        }
+        return data;
+    };
+
+    const replaceentity = function replaceentity(entity) {
+        entity = parseInputEndpointData(entity);
+        this.connection.v2.replaceEntityAttributes(entity, {keyValues: true}).then(() => {
+            MashupPlatform.wiring.pushEvent("updatedentity", entity);
+        });
+    };
+
+    const createorupdate = function createorupdate(entity) {
+        entity = parseInputEndpointData(entity);
+        this.connection.v2.createEntity(entity, {
+            keyValues: true,
+            upsert: true
+        });
+    };
+
+    const batchupdate = function batchupdate(updates) {
+        updates = parseInputEndpointData(updates);
+        this.connection.v2.batchUpdate(updates);
+    };
+
     NGSITarget.prototype.init = function init() {
         createNGSIConnection.call(this);
 
         MashupPlatform.prefs.registerCallback(createNGSIConnection.bind(this));
 
-        MashupPlatform.wiring.registerCallback('replaceentity', (entity) => {
-            if (typeof entity === "string") {
-                try {
-                    entity = JSON.parse(entity);
-                } catch (e) {
-                    throw new MashupPlatform.wiring.EndpointTypeError();
-                }
-            }
-            this.connection.v2.replaceEntityAttributes(entity).then(() => {
-                MashupPlatform.wiring.pushEvent("updatedentity", entity);
-            });
-        });
-
-        MashupPlatform.wiring.registerCallback('createorupdate', (updates) => {
-            if (typeof updates === "string") {
-                try {
-                    updates = JSON.parse(updates);
-                } catch (e) {
-                    throw new MashupPlatform.wiring.EndpointTypeError();
-                }
-            }
-            this.connection.v2.createEntity(updates, {
-                keyValues: true,
-                upsert: true
-            });
-        });
-
-        MashupPlatform.wiring.registerCallback('batchupdate', (updates) => {
-            if (typeof updates === "string") {
-                try {
-                    updates = JSON.parse(updates);
-                } catch (e) {
-                    throw new MashupPlatform.wiring.EndpointTypeError();
-                }
-            }
-            this.connection.v2.batchUpdate(updates);
-        });
+        MashupPlatform.wiring.registerCallback('replaceentity', replaceentity.bind(this));
+        MashupPlatform.wiring.registerCallback('createorupdate', createorupdate.bind(this));
+        MashupPlatform.wiring.registerCallback('batchupdate', batchupdate.bind(this));
     };
 
     /******************************************************************************/
@@ -103,6 +102,9 @@
 
     /* import-block */
     window.NGSITarget = NGSITarget;
+    window.replaceentity = replaceentity;
+    window.createorupdate = createorupdate;
+    window.batchupdate = batchupdate;
     /* end-import-block */
 
     /* TODO
