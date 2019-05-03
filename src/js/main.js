@@ -81,7 +81,7 @@
 
         if (MashupPlatform.prefs.get('use_owner_credentials')) {
             request_headers['FIWARE-OAuth-Token'] = 'true';
-            request_headers['FIWARE-OAuth-Header-Name'] = 'X-Auth-Token';
+            request_headers['FIWARE-OAuth-Header-Name'] = 'Authorization';
             request_headers['FIWARE-OAuth-Source'] = 'workspaceowner';
         }
 
