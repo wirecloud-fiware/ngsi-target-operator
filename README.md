@@ -6,11 +6,6 @@
 The NGSI target operator is a [WireCloud operator](http://wirecloud.readthedocs.org/en/latest/) usable for making
 context changes using the NGSI API.
 
-Latest version of this operator is always
-[provided in FIWARE Lab](https://store.lab.fiware.org/search/keyword/OrionStarterKit) where you can make use of it on
-the [Mashup portal](https://mashup.lab.fiware.org). Remember to take a look into the example mashups provided in the
-OrionStarterKit offering.
-
 ## Build
 
 Be sure to have installed [Node.js](http://node.js). For example, you can install it on Ubuntu and Debian running the

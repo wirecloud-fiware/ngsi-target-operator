@@ -96,7 +96,7 @@
                 operator.init();
                 replaceentity.call(operator, updates);
 
-                expect(operator.connection.v2.replaceEntityAttributes).toHaveBeenCalledWith(updates, {keyValues: true});
+                expect(operator.connection.v2.replaceEntityAttributes).toHaveBeenCalledWith(updates);
                 expect(MashupPlatform.wiring.pushEvent).toHaveBeenCalledWith("updatedentity", updates);
             });
 
@@ -112,7 +112,7 @@
                 operator.init();
                 replaceentity.call(operator, JSON.stringify(updates));
 
-                expect(operator.connection.v2.replaceEntityAttributes).toHaveBeenCalledWith(updates, {keyValues: true});
+                expect(operator.connection.v2.replaceEntityAttributes).toHaveBeenCalledWith(updates);
                 expect(MashupPlatform.wiring.pushEvent).toHaveBeenCalledWith("updatedentity", updates);
             });
 

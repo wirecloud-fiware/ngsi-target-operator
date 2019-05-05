@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="ngsi-target" version="3.0.7">
+<operator xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="ngsi-target" version="4.0.0">
     <details>
         <title>NGSI target</title>
         <homepage>https://github.com/wirecloud-fiware/ngsi-target-operator</homepage>
@@ -29,9 +29,9 @@
 
     <wiring>
         <inputendpoint name="batchupdate" type="text" label="Batch update" description="Entity to save into the context broker" friendcode="ngsi-batch-operation"/>
-        <inputendpoint name="createorupdate" type="text" label="Create or update" description="Entity to create or update into the context broker" friendcode="entity"/>
-        <inputendpoint name="replaceentity" type="text" label="Entity to update" description="Entity to update into the context broker" friendcode="entity"/>
-        <outputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity"/>
+        <inputendpoint name="createorupdate" type="text" label="Create or update" description="Entity to create or update into the context broker" friendcode="entity-normalized"/>
+        <inputendpoint name="replaceentity" type="text" label="Replace" description="Entity data to use for replacing the entity. This operation will create a new entity if the associted entity does not exist." friendcode="entity-normalized"/>
+        <outputendpoint name="updatedentity" type="text" label="Updated entities" description="Entity once stored into the context broker" friendcode="entity-normalized"/>
     </wiring>
 
     <scripts>

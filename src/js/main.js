@@ -44,7 +44,7 @@
 
     const replaceentity = function replaceentity(entity) {
         entity = parseInputEndpointData(entity);
-        this.connection.v2.replaceEntityAttributes(entity, {keyValues: true}).then(() => {
+        this.connection.v2.replaceEntityAttributes(entity).then(() => {
             MashupPlatform.wiring.pushEvent("updatedentity", entity);
         });
     };
@@ -52,7 +52,6 @@
     const createorupdate = function createorupdate(entity) {
         entity = parseInputEndpointData(entity);
         this.connection.v2.createEntity(entity, {
-            keyValues: true,
             upsert: true
         });
     };
